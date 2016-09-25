@@ -26,6 +26,12 @@ class golang (
     default  => $::architecture
   }
 
+  file { '/opt/puppetlabs/facter/facts.d/golang.yaml':
+    ensure  => present,
+    content => "---\ngoversion: ${version}\ngopath: ${workdir}\ngoroot: ${installdir}/go\n",
+    path    => '/opt/puppetlabs/facter/facts.d/golang.yaml',
+  }
+
   $url =  "https://storage.googleapis.com/golang/go${version}.${kernel}-${arch}.tar.gz"
 
   file { [$workdir,
